@@ -1,4 +1,3 @@
-const fs = require('fs')
 const gm = require('gm').subClass({imageMagick: true})
 const webdriver = require('selenium-webdriver')
 
@@ -23,7 +22,10 @@ driver.sleep(2000)
 
 driver.takeScreenshot().then(base64png => {
   let date = (new Date())
-  let file = date.toISOString().replace(/:/g, '_').split('.')[0]
+  let file = date.toISOString().replace(/:/g, '_').split('.')[0].replace(/_\d\d$/, '')
+  let minutes = Math.round(parseInt(file.split('_')[1], 10) / 10) * 10
+  file = file.replace(/_\d\d$/, '_' + minutes.toString())
+
   let buf = new Buffer(base64png, 'base64')
   gm(buf, 'screenshot.png')
   .crop(2250, 1310, 522, 140)
