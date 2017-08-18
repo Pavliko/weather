@@ -13,6 +13,25 @@
     "chromedriver": "2.31.0",
     "chromeless": "1.2.0",
     "gm": "1.23.0",
+    "normalize.css": "7.0.0",
     "selenium-webdriver": "3.5.0"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.1",
+    "babel-preset-env": "1.6.0",
+    "clean-webpack-plugin": "0.1.16",
+    "css-loader": "0.28.4",
+    "cssnano": "3.10.0",
+    "extract-text-webpack-plugin": "2.1.2",
+    "html-loader": "0.5.1",
+    "postcss-cssnext": "2.11.0",
+    "postcss-import": "10.0.0",
+    "postcss-inline-svg": "3.0.0",
+    "postcss-loader": "2.0.6",
+    "postcss-sorting": "3.0.1",
+    "style-loader": "0.18.2",
+    "webpack": "3.5.5",
+    "webpack-dev-server": "2.7.1"
   }
 }
