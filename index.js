@@ -1,7 +1,7 @@
 const gm = require('gm').subClass({imageMagick: true})
 const webdriver = require('selenium-webdriver')
 
-const PATH_TO_CHROME = '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+const PATH_TO_CHROME = '/usr/bin/google-chrome'
 
 const chromeCapabilities = webdriver.Capabilities.chrome()
 chromeCapabilities.set('chromeOptions', {
@@ -18,7 +18,7 @@ const driver = new webdriver.Builder()
   .build()
 
 driver.get('https://yandex.ru/pogoda/saint-petersburg/nowcast')
-driver.sleep(2000)
+driver.sleep(20000)
 
 driver.takeScreenshot().then(base64png => {
   let date = (new Date())
@@ -28,12 +28,14 @@ driver.takeScreenshot().then(base64png => {
 
   let buf = new Buffer(base64png, 'base64')
   gm(buf, 'screenshot.png')
-  .crop(2250, 1310, 522, 140)
-  .thumb(320, 190, `screenshots/${file}_thumb.jpg`, 100, function (err) {
-    if (!err) console.log('thumb done')
-  })
+  .crop(1100, 650, 262, 80)
   .write(`screenshots/${file}.jpg`, function (err) {
-    if (!err) console.log('done')
+    if (!err) {
+      console.log('done')
+      gm(`screenshots/${file}.jpg`).thumb(200, 118, `screenshots/${file}_thumb.jpg`, 70, (err) => {
+        if (!err) console.log('thumb done')
+      })
+    }
   })
 })
 

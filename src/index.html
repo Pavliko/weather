@@ -18,15 +18,18 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security. Брось каку!</p>
         <![endif]-->
         <h1 class="title">Осадки в Санкт-Петербурге</h1>
-        <section class="map">
-            <div class="map-bg"></div>
+        <div class="informer">
+            <a class="informer-prev" role="date-prev"></a>
+            <span role="date"></span>
+            <a class="informer-next" role="date-next"></a>
+        </div>
+        <section class="map" role="map">
+            <div class="map-bg" role="map-background"></div>
         </section>
         <section class="ui">
-            <div class="informer">
-                <span role="date"></span>
-                <span role="time"></span>
+            <div class="timeline" role="timeline">
+
             </div>
-            <input type="date"/>
         </section>
         <script src="scripts.js"></script>
     </body>

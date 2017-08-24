@@ -29,11 +29,13 @@ driver.takeScreenshot().then(base64png => {
   let buf = new Buffer(base64png, 'base64')
   gm(buf, 'screenshot.png')
   .crop(1100, 650, 262, 80)
-  .thumb(320, 190, `screenshots/${file}_thumb.jpg`, 100, function (err) {
-    if (!err) console.log('thumb done')
-  })
   .write(`screenshots/${file}.jpg`, function (err) {
-    if (!err) console.log('done')
+    if (!err) {
+      console.log('done')
+      gm(`screenshots/${file}.jpg`).thumb(200, 118, `screenshots/${file}_thumb.jpg`, 70, (err) => {
+        if (!err) console.log('thumb done')
+      })
+    }
   })
 })
 

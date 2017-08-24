@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "selenium-webdriver": "3.5.0"
   },
   "devDependencies": {
+    "aws-sdk": "2.103.0",
     "babel-core": "6.26.0",
     "babel-loader": "7.1.1",
     "babel-preset-env": "1.6.0",
