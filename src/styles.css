@@ -62,8 +62,10 @@ a {
 }
 
 .ui {
-  margin: 20px auto 50px;
-  max-width: 550px;
+  padding: 20px 0 50px;
+  margin: 0 auto;
+  width: 550px;
+
 }
 
 .informer {
@@ -131,12 +133,21 @@ a {
   }
   &:hover:before {
     opacity: 1;
-
   }
 
   &.timeline-bar--active:before {
     opacity: 1;
     background-color: black;
+  }
+}
+
+.touch .timeline-bar.timeline-bar--hovered  {
+  & img {
+    visibility: visible;
+  }
+
+  &:before {
+    opacity: 1;
   }
 }
 
@@ -159,12 +170,13 @@ a {
     width: 1px;
     content: '';
     transition: opacity .2s ease;
-
   }
 }
 
-.timeline-bar--active .timeline-bar-hour,
-.timeline-bar:hover .timeline-bar-hour{
+.timeline-bar.timeline-bar--active .timeline-bar-hour,
+.touch .timeline-bar.timeline-bar--active .timeline-bar-hour,
+.touch .timeline-bar.timeline-bar--hovered .timeline-bar-hour,
+.timeline-bar:hover .timeline-bar-hour {
   visibility: hidden;
   opacity: 0;
 }
@@ -183,17 +195,45 @@ a {
   transition: opacity .2s ease-in-out, color .2s ease-in-out;
 }
 
-.timeline-bar:hover .timeline-bar-time {
+.timeline-bar:hover .timeline-bar-time,
+.touch .timeline-bar.timeline-bar--hovered .timeline-bar-time {
   opacity: 1;
   visibility: visible;
   z-index: 4;
 }
 
-.timeline-bar--active .timeline-bar-time {
+.touch .timeline-bar.timeline-bar--active .timeline-bar-time {
   opacity: 1;
   font-weight: bold;
   visibility: visible;
   color: black;
+}
+
+.touch {
+  & .timeline-bar:hover {
+    & img {
+      visibility: hidden;
+    }
+    &:before {
+      opacity: 0;
+    }
+
+    & .timeline-bar-hour {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    & .timeline-bar-time {
+      opacity: 0;
+      visibility: hidden;
+      z-index: initial;
+    }
+  }
+
+  & .timeline-bar.timeline-bar--active:before {
+    opacity: 1;
+    background-color: black;
+  }
 }
 
 @media only screen and (max-width: 620px) {
@@ -225,4 +265,9 @@ a {
     width: 320px;
     height: 195px;
   }
+
+  .ui {
+    width: 286px;
+  }
 }
+

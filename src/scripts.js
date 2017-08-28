@@ -5,6 +5,9 @@ import averageColor from './average_color.js'
 
 const START_DATE = new Date(2017, 7, 21, 0, 0, 0)
 const NOW = new Date()
+const IS_TOUCH = 'ontouchstart' in window
+
+if (IS_TOUCH) document.body.className = 'touch'
 
 let currentDate = false
 if (window.location.search !== '') {
@@ -58,12 +61,41 @@ class Timeline {
     this.count = count
     this.step = step
     this.current = { value: this._floor(current), index: false }
+    this.hoveredNode = false
+    this.hoveredIndex = false
     this.getUrl = urlBuilder
     this._preloadedImages = []
     this._initBars()
     this._loadFull(this.current.index)
     this._loadThumbs()
     this._setLinks()
+    if (IS_TOUCH) {
+      window.addEventListener('touchmove', (e) => {
+        let element = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY)
+        let index = element.getAttribute('data-index')
+        if (index) {
+          this._setHovered(this.bars[index].node, index)
+        } else {
+          if (this.hoveredNode) {
+            this.hoveredNode.classList.remove('timeline-bar--hovered')
+            this.hoveredNode = false
+          }
+        }
+      })
+      window.addEventListener('touchend', (e) => {
+        this.setCurrent(this.hoveredIndex)
+        if (this.hoveredNode) this.hoveredNode.classList.remove('timeline-bar--hovered')
+      })
+    }
+  }
+
+  _setHovered (bar, i) {
+    if (!bar) return false
+
+    if (this.hoveredNode) this.hoveredNode.classList.remove('timeline-bar--hovered')
+    this.hoveredNode = bar
+    this.hoveredIndex = i
+    this.hoveredNode.classList.add('timeline-bar--hovered')
   }
 
   _setLinks () {
@@ -100,8 +132,7 @@ class Timeline {
     let unblur = (limit) => {
       if (blur > limit) {
         mapBgNode.style.filter = `blur(${--blur}px)`
-        promise = setTimeout(() => {
-          unblur(limit)}, 200)
+        promise = setTimeout(() => { unblur(limit) }, 200)
       } else {
         promise = false
       }
@@ -161,8 +192,7 @@ class Timeline {
   _recursiveLoadThumbs (step, index) {
     let next = index + step
     if (next < 0 || next >= this.count) return false
-    this._loadThumb(next, () => {
-      this._recursiveLoadThumbs(step, next)})
+    this._loadThumb(next, () => { this._recursiveLoadThumbs(step, next) })
   }
 
   _initBars () {
@@ -176,6 +206,7 @@ class Timeline {
       let time = document.createElement('div')
       time.className = 'timeline-bar-time'
       time.innerHTML = formatTime(date)
+      bar.setAttribute('data-index', i)
       bar.appendChild(time)
       if (date.getMinutes() === 0) {
         let hour = document.createElement('div')
@@ -184,10 +215,10 @@ class Timeline {
         bar.appendChild(hour)
       }
       bar.className = 'timeline-bar'
-      if (i > this.count / 2) bar.className += ' timeline-bar--right'
+      if (i > this.count / 2) bar.classList.add('timeline-bar--right')
       if (value === this.current.value) {
         this.current.index = i
-        bar.className += ' timeline-bar--active'
+        bar.classList.add('timeline-bar--active')
       }
       bar.style.width = `${width}%`
       bar.addEventListener('click', ((index) => {
