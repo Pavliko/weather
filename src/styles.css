@@ -26,6 +26,10 @@ a {
   height: 43px;
   font-size: 36px;
 
+  & a {
+    color: #777;
+  }
+
   &:before {
     position: absolute;
     top: -58px;
