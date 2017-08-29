@@ -23,7 +23,7 @@ driver.sleep(20000)
 driver.takeScreenshot().then(base64png => {
   let date = (new Date())
   let file = date.toISOString().replace(/:/g, '_').split('.')[0].replace(/_\d\d$/, '')
-  let minutes = Math.round(parseInt(file.split('_')[1], 10) / 10) * 10
+  let minutes = Math.floor(parseInt(file.split('_')[1], 10) / 10) * 10
   file = file.replace(/_\d\d$/, '_' + minutes.toString())
 
   let buf = new Buffer(base64png, 'base64')
