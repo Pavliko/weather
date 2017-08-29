@@ -144,6 +144,7 @@ a {
 .touch .timeline-bar.timeline-bar--hovered  {
   & img {
     visibility: visible;
+    top: -105px;
   }
 
   &:before {
@@ -200,6 +201,18 @@ a {
   opacity: 1;
   visibility: visible;
   z-index: 4;
+  transition: none;
+}
+
+.touch .timeline-bar.timeline-bar--hovered .timeline-bar-time {
+  top: -128px;
+  left: 26px;
+  border-radius: none;
+  background-color: rgba(255,255,255,.8)
+}
+
+.touch .timeline-bar.timeline-bar--right.timeline-bar--hovered .timeline-bar-time {
+  left: -70px;
 }
 
 .touch .timeline-bar.timeline-bar--active .timeline-bar-time {
@@ -267,7 +280,7 @@ a {
   }
 
   .ui {
-    width: 286px;
+    width: 274px;
   }
 }
 
