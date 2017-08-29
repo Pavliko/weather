@@ -219,7 +219,8 @@ a {
   left: -70px;
 }
 
-.touch .timeline-bar.timeline-bar--active .timeline-bar-time {
+.touch .timeline-bar.timeline-bar--active .timeline-bar-time,
+.timeline-bar.timeline-bar--active .timeline-bar-time {
   opacity: 1;
   font-weight: bold;
   visibility: visible;
