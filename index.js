@@ -19,6 +19,11 @@ const driver = new webdriver.Builder()
 
 driver.get('https://yandex.ru/pogoda/saint-petersburg/nowcast')
 driver.sleep(20000)
+let button = driver.findElement(webdriver.By.css('.maps-tutorial button'))
+if (button) {
+  button.click()
+  driver.sleep(1000)
+}
 
 driver.takeScreenshot().then(base64png => {
   let date = (new Date())

@@ -1,7 +1,7 @@
 const gm = require('gm').subClass({imageMagick: true})
 const webdriver = require('selenium-webdriver')
 
-const PATH_TO_CHROME = '/usr/bin/google-chrome'
+const PATH_TO_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 const chromeCapabilities = webdriver.Capabilities.chrome()
 chromeCapabilities.set('chromeOptions', {
@@ -19,6 +19,11 @@ const driver = new webdriver.Builder()
 
 driver.get('https://yandex.ru/pogoda/saint-petersburg/nowcast')
 driver.sleep(20000)
+let button = driver.findElement(webdriver.By.css('.maps-tutorial button'))
+if (button) {
+  button.click()
+  driver.sleep(1000)
+}
 
 driver.takeScreenshot().then(base64png => {
   let date = (new Date())
